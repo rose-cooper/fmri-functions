@@ -41,7 +41,6 @@ taskDir = ['/path/to/task.matfiles/'];
 % define ROI names
 myROIs = {'ROIa','ROIb','ROIc'};
 
-% name of task conditions
 
 
 clear batch
@@ -201,9 +200,10 @@ for nsub=1:NSUBS
             batch.Setup.conditions.names{ntask} = curReg{1};
             batch.Setup.conditions.onsets{ntask}{nsub}{nses} = task_info.onsets;       %can also be 0 if it's the whole run (e.g. rest)
             batch.Setup.conditions.durations{ntask}{nsub}{nses} = task_info.durations; %use inf for the whole functional run
-            batch.Setup.conditions.param{ntask}{nsub}{nses} = 0; %or index number of first level covariate for temporal parametric modulation
+            batch.Setup.conditions.param(ntask) = 0; %or index number of first level covariate for temporal parametric modulation
             % note, if using parametric modulation, you should attribute it
             % to it's own "condition" with ons=0 and duration=inf
+            % grab hrf-convolved parametric modulation values from SPM.xX.X
         end
     end %end of loop through sessions
 end
